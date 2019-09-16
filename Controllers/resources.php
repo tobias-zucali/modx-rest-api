@@ -1,10 +1,10 @@
 <?php
 /**
- * Found at: rest/Controllers/Resource.php
- *
- * Handle requests to [URL]/Controllers/resource. Automagically handles CRUD (GET/POST/PUT/DELETE) for the xPDOObject class myBox.
+ * GET [URL]/resources returns a list of all resources.
+ * GET [URL]/resources/1 returns the resource with id 1.
+ * POST, PUT and DELETE is disabled.
  */
-class myControllerResource extends modRestController {
+class myControllerResources extends modRestController {
     public $classKey = 'modResource';
     public $defaultSortField = 'id';
     public $defaultSortDirection = 'ASC';
