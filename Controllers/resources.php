@@ -39,6 +39,22 @@ class myControllerResources extends modRestController {
     protected function prepareListObject(xPDOObject $object) {
         $objectArray = $object->toArray();
 
+        # TZ EDIT: implement structure_only mode
+        if ($_GET["structure_only"] !== null) {
+            return [
+                'alias' => $objectArray['alias'],
+                'contentType' => $objectArray['contentType'],
+                'deleted' => $objectArray['deleted'],
+                'hidemenu' => $objectArray['hidemenu'],
+                'id' => $objectArray['id'],
+                'menuindex' => $objectArray['menuindex'],
+                'pagetitle' => $objectArray['pagetitle'],
+                'parent' => $objectArray['parent'],
+                'published' => $objectArray['published'],
+                'template' => $objectArray['template'],
+            ];
+        }
+
         # TZ EDIT: add template variables
         $templateVarCollection = $object->getTemplateVarCollection($object);
         foreach ($templateVarCollection as $templateVar) {
