@@ -1,4 +1,7 @@
 <?php
+// allow any access as it is read only
+header("Access-Control-Allow-Origin: *");
+
 $MODX_CORE_DIRECTORY = dirname(__FILE__) . '/../modx-git/core/';
 
 // Boot up MODX
