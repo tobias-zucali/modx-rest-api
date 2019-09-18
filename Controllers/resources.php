@@ -41,18 +41,7 @@ class myControllerResources extends modRestController {
 
         # TZ EDIT: implement structure_only mode
         if ($_GET["structure_only"] !== null) {
-            return [
-                'alias' => $objectArray['alias'],
-                'contentType' => $objectArray['contentType'],
-                'deleted' => $objectArray['deleted'],
-                'hidemenu' => $objectArray['hidemenu'],
-                'id' => $objectArray['id'],
-                'menuindex' => $objectArray['menuindex'],
-                'pagetitle' => $objectArray['pagetitle'],
-                'parent' => $objectArray['parent'],
-                'published' => $objectArray['published'],
-                'template' => $objectArray['template'],
-            ];
+            return $objectArray;
         }
 
         # TZ EDIT: add template variables
@@ -61,7 +50,21 @@ class myControllerResources extends modRestController {
             $objectArray[$templateVar->name] = $templateVar->value;
         }
 
+        $fieldsToEvaluate = [
+            "content",
+            "content_en",
+        ];
+        foreach ($fieldsToEvaluate as $field) {
+            $objectArray[$field] = $this->getChunk($objectArray[$field], array(
+                "resource" => $objectArray->id,
+            ));
+        }
+
         return $objectArray;
+    }
+
+    protected function getChunk($html, array $properties = array()) {
+        return $this->modx->newObject('modChunk')->process($properties, $html);
     }
 
     public function post()
